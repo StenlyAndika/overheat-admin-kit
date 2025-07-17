@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overheat Admin - Tailwind CSS & Alpine JS</title>
+    <meta name="description" content="Overheat Admin Dashboard built with Tailwind CSS and Alpine.js. Fast, responsive, and modern UI for web applications.">
+    <meta name="keywords" content="Tailwind CSS, Alpine.js, Admin Dashboard, Overheat Admin, Responsive UI, Web App UI">
+    <meta name="author" content="Stenly Andika">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://stenlyandika.github.io/">
+    <!-- Tailwind CSS & Alpine.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        main: '#F7F7FF',
+                        dark: '#E4E4FC',
+                        primary: '#008CFF',
+                        secondary: '#0DCAF0',
+                        tertiary: '#FD3550',
+                        accent: '#41E099',
+                        selected: '#F2F9FF',
+                    },
+                    fontFamily: {
+                        roboto: ['Roboto', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="font-roboto">
+    <div
+        x-data="{
+            sidebarOpen: true,
+            masterDataOpen: false,
+            profileOpen: false,
+            toggleSidebar() {
+                this.sidebarOpen = !this.sidebarOpen;
+            }
+        }"
+        x-cloak
+        class="min-h-screen flex"
+    >
+        <!-- Sidebar Light Theme -->
+        <aside
+            x-show="sidebarOpen"
+            x-transition:enter="transition ease-in-out duration-300"
+            x-transition:enter-start="-translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition ease-in-out duration-300"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="-translate-x-full"
+            class="fixed inset-y-0 left-0 z-30 bg-white shadow-lg w-[250px] border-r border-gray-200"
+        >
+            <!-- Brand Logo -->
+            <div class="px-6 py-3 flex items-center justify-between bg-white border-b border-gray-200">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded bg-white flex items-center justify-center mr-3">
+                        <span class="material-symbols-outlined text-md text-primary">mode_heat</span>
+                    </div>
+                    <h2 class="text-primary text-lg font-semibold">Overheat Admin</h2>
+                </div>
+            </div>
+
+            <!-- User Profile -->
+            <div class="bg-gray-100 px-6 py-4 flex items-center border-h border-gray-200">
+                <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-md">person</span>
+                </div>
+                <div class="ml-3">
+                    <h3 class="font-medium text-gray-700 text-sm">John Doe</h3>
+                    <p class="text-gray-700 text-xs">Administrator</p>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="mt-2">
+                <ul class="space-y-1 px-3">
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-md bg-selected text-primary text-md">
+                            <span class="material-symbols-outlined mr-3 text-md">dashboard</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <div
+                            @click="masterDataOpen = !masterDataOpen"
+                            class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-md transition-colors"
+                        >
+                            <span class="material-symbols-outlined mr-3 text-md">folder</span>
+                            <span>Master Data</span>
+                            <span
+                                class="material-symbols-outlined ml-auto text-lg transition-transform duration-200"
+                                :class="{'rotate-[-90deg]': masterDataOpen}"
+                                >keyboard_arrow_left</span>
+                        </div>
+                        <div
+                            x-show="masterDataOpen"
+                            x-collapse
+                            class="ml-6 mt-1 space-y-1"
+                        >
+                            <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-sm transition-colors">
+                                <span class="material-symbols-outlined mr-3 text-base">circle</span>
+                                Category
+                            </a>
+                            <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-sm transition-colors">
+                                <span class="material-symbols-outlined mr-3 text-base">circle</span>
+                                Product
+                            </a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-md transition-colors">
+                            <span class="material-symbols-outlined mr-3 text-md">edit_document</span>
+                            <span>Import Product</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-md transition-colors">
+                            <span class="material-symbols-outlined mr-3 text-md">content_paste_go</span>
+                            <span>Export Product</span>
+                        </a>
+                    </li>
+
+                    <li class="pt-4 border-t border-gray-200 mt-4">
+                        <a href="#" class="flex items-center px-3 py-2 rounded-md hover:bg-red-50 hover:text-red-600 text-gray-700 text-md transition-colors">
+                            <span class="material-symbols-outlined mr-3 text-md">exit_to_app</span>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Content wrapper -->
+        <div
+            class="flex-1 flex flex-col min-h-screen transition-all duration-300"
+            :class="sidebarOpen ? 'ml-[250px]' : 'ml-0'"
+        >
+            <!-- Topbar -->
+            <header class="bg-white shadow-md shadow-dark flex justify-between items-center h-14 px-6 sticky top-0 z-20">
+                <div class="flex items-center">
+                    <button @click="toggleSidebar"
+                            class="p-2 text-gray-700 hover:bg-gray-100 rounded-md focus:outline-none mr-4 transition-colors">
+                        <span class="material-symbols-outlined text-md mt-2">menu</span>
+                    </button>
+                    <h1 class="text-lg font-semibold text-gray-700">Dashboard</h1>
+                </div>
+            </header>
+
+            <!-- Main content -->
+            <main class="flex-1 p-6 bg-main">
+                <!-- Dashboard Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <!-- Total Products Card -->
+                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-primary">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-700 text-sm font-medium">Stok Barang</p>
+                                <p class="text-2xl font-bold text-gray-700 mt-1">1,245</p>
+                            </div>
+                            <div class="bg-primary rounded-full p-3">
+                                <span class="material-symbols-outlined text-white text-2xl">inventory</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Incoming Items Card -->
+                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-secondary">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-700 text-sm font-medium">Barang Masuk</p>
+                                <p class="text-2xl font-bold text-gray-700 mt-1">326</p>
+                            </div>
+                            <div class="bg-secondary rounded-full p-3">
+                                <span class="material-symbols-outlined text-white text-2xl">input</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outgoing Items Card -->
+                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-tertiary">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-700 text-sm font-medium">Barang Keluar</p>
+                                <p class="text-2xl font-bold text-gray-700 mt-1">189</p>
+                            </div>
+                            <div class="bg-tertiary rounded-full p-3">
+                                <span class="material-symbols-outlined text-white text-2xl">output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Card -->
+                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-accent">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-700 text-sm font-medium">Total Kategori</p>
+                                <p class="text-2xl font-bold text-gray-700 mt-1">24</p>
+                            </div>
+                            <div class="bg-accent rounded-full p-3">
+                                <span class="material-symbols-outlined text-white text-2xl">category</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Card -->
+                <div class="bg-white rounded-lg shadow-md shadow-dark border border-gray-200 p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-md font-semibold text-gray-700">Recent Activity</h3>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Sticky Footer -->
+            <footer class="bg-main text-sm text-gray-600 px-6 py-3 text-center mt-auto">
+                &copy; 2025 Stenly Andika. All rights reserved.
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

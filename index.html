@@ -14,9 +14,15 @@
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <!-- DataTables -->
+    <link href="https://cdn.datatables.net/2.3.2/css/dataTables.tailwindcss.css" rel="stylesheet" />
+
     <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -25,13 +31,13 @@
                         main: '#F7F7FF',
                         dark: '#E4E4FC',
                         primary: '#008CFF',
-                        secondary: '#0DCAF0',
-                        tertiary: '#FD3550',
-                        accent: '#41E099',
-                        selected: '#F2F9FF',
+                        secondary: '#FD3550',
+                        tertiary: '#41E099',
+                        accent: '#FFC107',
+                        hover: '#F2F9FF',
                     },
                     fontFamily: {
-                        roboto: ['Roboto', 'sans-serif'],
+                        display: ['Inter', 'ui-sans-serif', 'system-ui'],
                     },
                 }
             }
@@ -41,7 +47,7 @@
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="font-roboto">
+<body class="font-display">
     <div
         x-data="{
             sidebarOpen: true,
@@ -90,7 +96,7 @@
             <nav class="mt-2">
                 <ul class="space-y-1 px-3">
                     <li>
-                        <a href="#" class="flex items-center px-3 py-2 rounded-md bg-selected text-primary text-md">
+                        <a href="#" class="flex items-center px-3 py-2 rounded-md bg-primary text-white text-md">
                             <span class="material-symbols-outlined mr-3 text-md">dashboard</span>
                             <span>Dashboard</span>
                         </a>
@@ -99,7 +105,7 @@
                     <li>
                         <div
                             @click="masterDataOpen = !masterDataOpen"
-                            class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-md transition-colors"
+                            class="flex items-center px-3 py-2 rounded-md hover:bg-hover hover:text-primary cursor-pointer text-gray-700 text-md transition-colors"
                         >
                             <span class="material-symbols-outlined mr-3 text-md">folder</span>
                             <span>Master Data</span>
@@ -111,13 +117,13 @@
                         <div
                             x-show="masterDataOpen"
                             x-collapse
-                            class="ml-6 mt-1 space-y-1"
+                            class="ml-6 mt-1 space-y-0"
                         >
-                            <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-sm transition-colors">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-md hover:bg-hover hover:text-primary cursor-pointer text-gray-700 text-sm transition-colors">
                                 <span class="material-symbols-outlined mr-3 text-base">circle</span>
                                 Category
                             </a>
-                            <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-sm transition-colors">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-md hover:bg-hover hover:text-primary cursor-pointer text-gray-700 text-sm transition-colors">
                                 <span class="material-symbols-outlined mr-3 text-base">circle</span>
                                 Product
                             </a>
@@ -125,14 +131,14 @@
                     </li>
 
                     <li>
-                        <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-md transition-colors">
+                        <a href="#" class="flex items-center px-3 py-2 rounded-md hover:bg-hover hover:text-primary cursor-pointer text-gray-700 text-md transition-colors">
                             <span class="material-symbols-outlined mr-3 text-md">edit_document</span>
                             <span>Import Product</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="#" class="flex items-center px-3 py-2 rounded-md hover:text-primary cursor-pointer text-gray-700 text-md transition-colors">
+                        <a href="#" class="flex items-center px-3 py-2 rounded-md hover:bg-hover hover:text-primary cursor-pointer text-gray-700 text-md transition-colors">
                             <span class="material-symbols-outlined mr-3 text-md">content_paste_go</span>
                             <span>Export Product</span>
                         </a>
@@ -169,7 +175,7 @@
                 <!-- Dashboard Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                     <!-- Total Products Card -->
-                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-primary">
+                    <div class="bg-white rounded-md shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-primary">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-700 text-sm font-medium">Stok Barang</p>
@@ -182,7 +188,7 @@
                     </div>
 
                     <!-- Incoming Items Card -->
-                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-secondary">
+                    <div class="bg-white rounded-md shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-secondary">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-700 text-sm font-medium">Barang Masuk</p>
@@ -195,7 +201,7 @@
                     </div>
 
                     <!-- Outgoing Items Card -->
-                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-tertiary">
+                    <div class="bg-white rounded-md shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-tertiary">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-700 text-sm font-medium">Barang Keluar</p>
@@ -208,7 +214,7 @@
                     </div>
 
                     <!-- Categories Card -->
-                    <div class="bg-white rounded-lg shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-accent">
+                    <div class="bg-white rounded-md shadow-md shadow-dark p-4 hover:shadow-md transition-shadow border-l-4 border-accent">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-700 text-sm font-medium">Total Kategori</p>
@@ -222,9 +228,103 @@
                 </div>
 
                 <!-- Recent Activity Card -->
-                <div class="bg-white rounded-lg shadow-md shadow-dark border border-gray-200 p-4">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-md font-semibold text-gray-700">Recent Activity</h3>
+                <div class="bg-white w-full rounded-md shadow-sm border border-gray-200">
+                    <div id="sticky-banner" tabindex="-1" class="w-full border-l-4 bg-gray-100 border-primary pl-4 pr-4 my-4">
+                        <div class="flex items-center justify-between flex-wrap gap-4">
+                            <div class="flex py-2 px-2">
+                                <p class="text-gray-600 dark:text-gray-200 mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                                    </svg>
+                                </p>
+
+                                <span class="mx-2 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+
+                                <p class="flex items-center text-gray-600 -px-2">
+                                    <span class="mx-2">Transaksi</span>
+                                </p>
+
+                                <span class="mx-2 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+
+                                <p class="flex items-center text-gray-600 -px-2">
+                                    <span class="mx-2">Data Barang Masuk</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto bg-white rounded-md shadow-md px-6">
+                        <table id="search-table" class="min-w-full text-sm text-left text-gray-700">
+                            <thead class="bg-gray-100 text-xs uppercase text-gray-600">
+                                <tr>
+                                    <th class="px-6 py-4">No</th>
+                                    <th class="px-6 py-4">Nama Barang</th>
+                                    <th class="px-6 py-4">Nama Supplier</th>
+                                    <th class="px-6 py-4">Jumlah Masuk</th>
+                                    <th class="px-6 py-4">Tanggal Masuk</th>
+                                    <th class="px-6 py-4">Opsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-6 py-4">1</td>
+                                    <td class="px-6 py-4">Laptop Lenovo ThinkPad</td>
+                                    <td class="px-6 py-4">PT. Sumber Makmur</td>
+                                    <td class="px-6 py-4">15</td>
+                                    <td class="px-6 py-4">2024-06-01</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:underline">Detail</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">2</td>
+                                    <td class="px-6 py-4">Printer Epson L3110</td>
+                                    <td class="px-6 py-4">CV. Teknologi Jaya</td>
+                                    <td class="px-6 py-4">8</td>
+                                    <td class="px-6 py-4">2024-06-02</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:underline">Detail</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">3</td>
+                                    <td class="px-6 py-4">Monitor Samsung 24"</td>
+                                    <td class="px-6 py-4">PT. Sumber Makmur</td>
+                                    <td class="px-6 py-4">12</td>
+                                    <td class="px-6 py-4">2024-06-03</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:underline">Detail</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">4</td>
+                                    <td class="px-6 py-4">Keyboard Logitech K120</td>
+                                    <td class="px-6 py-4">CV. Sinar Abadi</td>
+                                    <td class="px-6 py-4">25</td>
+                                    <td class="px-6 py-4">2024-06-04</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:underline">Detail</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">5</td>
+                                    <td class="px-6 py-4">Mouse Wireless Logitech</td>
+                                    <td class="px-6 py-4">PT. Sumber Makmur</td>
+                                    <td class="px-6 py-4">30</td>
+                                    <td class="px-6 py-4">2024-06-05</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:underline">Detail</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </main>
@@ -235,5 +335,20 @@
             </footer>
         </div>
     </div>
+    <!-- Jquery & Datatables -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.tailwindcss.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#search-table').DataTable({
+                responsive: true,
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.13.7/i18n/id.json",
+                    zeroRecords: "Data tidak ditemukan",
+                }
+            });
+        });
+    </script>
 </body>
 </html>
